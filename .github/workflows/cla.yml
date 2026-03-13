@@ -21,8 +21,8 @@ jobs:
           the CLA') || github.event_name == 'pull_request_target'
         uses: contributor-assistant/github-action@v2.6.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
         with:
           path-to-signatures: "signatures/signatures.json"
           path-to-document: "https://github.com/iamvikshan/.github/blob/main/.github/CLA.md"

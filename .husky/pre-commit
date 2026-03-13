@@ -1,39 +1,69 @@
 #!/bin/sh
-
-# Only run in GitHub Codespaces (not in CI/CD like GitHub Actions)
-# CODESPACES is set to "true" in Codespaces environments
-# CI is set in GitHub Actions and most CI/CD environments
-if [ "$CODESPACES" != "true" ] || [ "$CI" = "true" ]; then
-    exit 0
+# Skip Husky hooks in CI or when HUSKY is disabled
+if [ "$CI" = "true" ] || [ -n "$GITHUB_ACTIONS" ] || [ "$HUSKY" = "0" ]; then
+  echo "Husky hook skipped in CI or HUSKY=0"
+  exit 0
 fi
 
-# Expected git config values
-EXPECTED_USER="iamvikshan"
-EXPECTED_EMAIL="103361575+iamvikshan@users.noreply.github.com"
-
-# Get current git config
-CURRENT_USER=$(git config --global user.name 2>/dev/null || echo "")
-CURRENT_EMAIL=$(git config --global user.email 2>/dev/null || echo "")
-
-# Check if git config matches expected values
-if [ "$CURRENT_USER" = "$EXPECTED_USER" ] && [ "$CURRENT_EMAIL" = "$EXPECTED_EMAIL" ]; then
-    echo "✓ Git config already set to $EXPECTED_USER"
-    exit 0
-fi
-
-echo "⚠️  Git config mismatch detected!"
-echo "   Current: $CURRENT_USER <$CURRENT_EMAIL>"
-echo "   Expected: $EXPECTED_USER <$EXPECTED_EMAIL>"
-echo ""
-echo "Running iamvikshan.sh to fix attribution..."
-
-# Run the setup script
-SCRIPT_DIR="$(git rev-parse --show-toplevel)/scripts/iamvikshan.sh"
-if [ -x "$SCRIPT_DIR" ]; then
-    "$SCRIPT_DIR"
-elif [ -f "$SCRIPT_DIR" ]; then
-    bash "$SCRIPT_DIR"
-else
-    echo "❌ Could not find iamvikshan.sh script"
+# Codespaces git identity check
+if [ -n "$CODESPACES" ]; then
+  # Source GIT_USER and GIT_EMAIL from the single source of truth
+  SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+  if [ -f "$SCRIPT_DIR/scripts/git.sh" ]; then
+    # Extract variables using sed to handle single/double/no quotes robustly
+    # Pattern: export VAR="value" or export VAR='value' or export VAR=value
+    GIT_USER=$(grep -m1 '^export GIT_USER=' "$SCRIPT_DIR/scripts/git.sh" | sed "s/^export GIT_USER=[\"']\{0,1\}\([^\"']*\)[\"']\{0,1\}$/\1/")
+    GIT_EMAIL=$(grep -m1 '^export GIT_EMAIL=' "$SCRIPT_DIR/scripts/git.sh" | sed "s/^export GIT_EMAIL=[\"']\{0,1\}\([^\"']*\)[\"']\{0,1\}$/\1/")
+  else
+    echo "Error: scripts/git.sh not found. Cannot determine git identity."
     exit 1
+  fi
+
+  # Validate that both variables were extracted successfully
+  if [ -z "$GIT_USER" ] || [ -z "$GIT_EMAIL" ]; then
+    echo "Error: Failed to extract GIT_USER or GIT_EMAIL from scripts/git.sh"
+    echo "   GIT_USER='$GIT_USER' GIT_EMAIL='$GIT_EMAIL'"
+    echo "   Please ensure the script contains 'export GIT_USER=...' and 'export GIT_EMAIL=...'"
+    exit 1
+  fi
+
+  CURRENT_USER=$(git config --global user.name 2>/dev/null || echo "")
+  CURRENT_EMAIL=$(git config --global user.email 2>/dev/null || echo "")
+
+  # Also check GIT_AUTHOR_* env vars which override git config at commit time
+  EFFECTIVE_USER="${GIT_AUTHOR_NAME:-$CURRENT_USER}"
+  EFFECTIVE_EMAIL="${GIT_AUTHOR_EMAIL:-$CURRENT_EMAIL}"
+
+  if [ "$EFFECTIVE_USER" != "$GIT_USER" ] || [ "$EFFECTIVE_EMAIL" != "$GIT_EMAIL" ]; then
+    echo "Git identity mismatch detected in Codespaces!"
+    echo "   Expected: $GIT_USER <$GIT_EMAIL>"
+    echo "   Effective: $EFFECTIVE_USER <$EFFECTIVE_EMAIL>"
+    if [ -n "$GIT_AUTHOR_NAME" ] || [ -n "$GIT_AUTHOR_EMAIL" ]; then
+      echo "   (GIT_AUTHOR_NAME/EMAIL env vars are overriding git config)"
+    fi
+    echo ""
+    echo "Running git.sh to fix attribution..."
+
+    if [ ! -x "$SCRIPT_DIR/scripts/git.sh" ]; then
+      echo ""
+      echo "Error: $SCRIPT_DIR/scripts/git.sh is not executable or does not exist."
+      echo "   Run: chmod +x scripts/git.sh"
+      exit 1
+    fi
+
+    if "$SCRIPT_DIR/scripts/git.sh"; then
+      echo ""
+      echo "Git config updated. Please run 'git commit' again."
+      exit 1
+    else
+      echo ""
+      echo "Error: git.sh failed to update git config."
+      echo "   Please run '$SCRIPT_DIR/scripts/git.sh' manually to debug."
+      exit 1
+    fi
+  fi
 fi
+
+# Run project checks (type checking, linting, and formatting)
+echo "Running pre-commit checks..."
+bun check && bun f:check

@@ -16,13 +16,14 @@
         "GitHub.copilot",
         "esbenp.prettier-vscode",
         "eamodio.gitlens",
-        "oven.bun-vscode"
+        "oven.bun-vscode",
+        "coderabbit.coderabbit-vscode"
       ]
     }
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "bun install && chmod +x scripts/iamvikshan.sh && ./scripts/iamvikshan.sh",
+  "postCreateCommand": "sudo apt update && sudo apt upgrade -y && [ -f scripts/git.sh ] && chmod +x scripts/git.sh; bun install && sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && curl -fsSL https://cli.coderabbit.ai/install.sh | sh",
 
   // Set `remoteUser` to `root` to connect as root.
   "remoteUser": "root"

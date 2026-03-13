@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
+import type { Logger, ProxyHeaders } from '../types'
 
 const LINKTREE_HOST = 'https://linktr.ee'
 const LINKTREE_USERNAME = Bun.env.LINKTREE_USERNAME || 'vikshan'
 
 // Simple logger using Bun's native console
-const log = {
+const log: Logger = {
   info: (msg: string, data?: object) =>
     console.log(`[INFO] ${msg}`, data ? JSON.stringify(data) : ''),
   error: (msg: string, data?: object) =>
@@ -95,7 +96,7 @@ const app = new Elysia()
       }
 
       // For non-HTML (CSS, JS, images, fonts, etc.), pass through with all relevant headers
-      const responseHeaders: Record<string, string> = {
+      const responseHeaders: ProxyHeaders = {
         'content-type': contentType,
         'cache-control':
           response.headers.get('cache-control') || 'public, max-age=3600'
