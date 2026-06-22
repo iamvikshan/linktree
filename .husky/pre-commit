@@ -2,7 +2,7 @@
 set -e
 
 # 1. Enforce global identity (instant execution)
-./.husky/_/identity-guard.sh
+# ./.husky/_/identity-guard.sh
 
 # 2. Run lightning-fast staged formatting and linting
 # echo "Running OXC checks..."

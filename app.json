@@ -17,5 +17,7 @@
       "size": "basic"
     }
   },
-  "buildpacks": [{ "url": "https://github.com/iamvikshan/heroku-buildpack-bun" }]
+  "buildpacks": [
+    { "url": "https://github.com/iamvikshan/heroku-buildpack-bun" }
+  ]
 }

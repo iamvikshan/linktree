@@ -9,8 +9,9 @@ on:
 jobs:
   run-cla:
     uses: iamvikshan/.github/.github/workflows/cla.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
     permissions:
-      actions: write
       contents: write
       pull-requests: write
       statuses: write

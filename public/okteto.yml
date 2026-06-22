@@ -1,7 +1,7 @@
 name: bento
 image: node:20.8.1
 workdir: /
-command: ["sh", "-c", "npm install && npm start"]
+command: ['sh', '-c', 'npm install && npm start']
 volumes:
   - /node_modules
 sync:
