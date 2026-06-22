@@ -1,0 +1,19 @@
+name: Code Review
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    if: ${{ github.event_name == 'pull_request' || github.event.issue.pull_request }}
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    uses: iamvikshan/.github/.github/workflows/pr-agent.yml@v0.36.1
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      GEMINI_TOKEN: ${{ secrets.GEMINI }}

@@ -42,8 +42,10 @@
     <em>Linktree doesn't offer custom domains on free plans, so this proxy lets you use your own domain.</em>
 </p>
 
-> [!NOTE]
-> 🍱 **Migrated from Bento** - This project originally supported Bento, which was [sunset on February 13th, 2026](https://bento.me/bento-sunset) after being acquired by Linktree. We've migrated to support Linktree profiles instead!
+> [!NOTE] 🍱 **Migrated from Bento** - This project originally supported Bento,
+> which was [sunset on February 13th, 2026](https://bento.me/bento-sunset) after
+> being acquired by Linktree. We've migrated to support Linktree profiles
+> instead!
 
 ## 📖 Table of Contents
 
@@ -59,10 +61,15 @@
 ---
 
 > [!TIP]
-> - To make changes, navigate to your official [Linktree profile](https://linktr.ee/admin) and make them there.
-> - You do not need to re-deploy the app—it will pull those changes before you can even save them! ⚡
-> 
-> In other words, as long as your deployment is smooth, you will never think about it. Just share your custom domain link, but use Linktree as normal! **HOW COOL IS THAT!** 🎉
+>
+> - To make changes, navigate to your official
+>   [Linktree profile](https://linktr.ee/admin) and make them there.
+> - You do not need to re-deploy the app—it will pull those changes before you
+>   can even save them! ⚡
+>
+> In other words, as long as your deployment is smooth, you will never think
+> about it. Just share your custom domain link, but use Linktree as normal!
+> **HOW COOL IS THAT!** 🎉
 
 ## ✨ Features
 
@@ -78,29 +85,31 @@
 
 Before you begin, ensure you have:
 
-- 💻 A computer/VPS running Windows, Linux, macOS, or Ubuntu 20.04+, or a Docker image
+- 💻 A computer/VPS running Windows, Linux, macOS, or Ubuntu 20.04+, or a Docker
+  image
 - 🟨 [Bun](https://bun.sh) v1.1.36 or later
 - � A [Linktree](https://linktr.ee) account
 - 🌐 A custom domain name
-- 🌐 [Apache2](https://httpd.apache.org/) or [Nginx](https://nginx.org/) (required for VPS reverse proxy)
+- 🌐 [Apache2](https://httpd.apache.org/) or [Nginx](https://nginx.org/)
+  (required for VPS reverse proxy)
 - 🔒 [Certbot](https://certbot.eff.org/) (required for SSL on VPS)
 
-> [!TIP] 
-> 💰 Get **$300 free credit** on Vultr to try your app! [Claim now](https://go.vikshan.tech/vultr)
+> [!TIP] 💰 Get **$300 free credit** on Vultr to try your app!
+> [Claim now](https://go.vikshan.tech/vultr)
 
 ### 💻 Recommended VPS Providers
 
-| Provider | Offer | Link |
-|----------|-------|------|
-| 🔥 **Ionos** | Special discount available | [Get Discount](https://go.vikshan.tech/ionos) |
-| ⚡ **Vultr** | $300 free credit | [Claim Credit](https://go.vikshan.tech/vultr) |
-| 🌊 **DigitalOcean** | $200 free credit | [Sign Up](https://go.vikshan.tech/digitalocean) |
-| 🏠 **Hostinger** | Discounted rates | [View Deals](https://go.vikshan.tech/hostinger) |
-| 🪨 **BigRock VPS** | Special offers | [Check Offers](https://go.vikshan.tech/bigrock) |
-| 🐊 **HostGator** | Exclusive deals | [Get Deals](https://go.vikshan.tech/hostgator) |
+| Provider            | Offer                      | Link                                            |
+| ------------------- | -------------------------- | ----------------------------------------------- |
+| 🔥 **Ionos**        | Special discount available | [Get Discount](https://go.vikshan.tech/ionos)   |
+| ⚡ **Vultr**        | $300 free credit           | [Claim Credit](https://go.vikshan.tech/vultr)   |
+| 🌊 **DigitalOcean** | $200 free credit           | [Sign Up](https://go.vikshan.tech/digitalocean) |
+| 🏠 **Hostinger**    | Discounted rates           | [View Deals](https://go.vikshan.tech/hostinger) |
+| 🪨 **BigRock VPS**  | Special offers             | [Check Offers](https://go.vikshan.tech/bigrock) |
+| 🐊 **HostGator**    | Exclusive deals            | [Get Deals](https://go.vikshan.tech/hostgator)  |
 
-> [!NOTE] 
-> 🤝 Need help with setup? I'm an **Ionos Partner** and can assist you! Contact me at [Vikshan](https://go.vikshan.tech/ionos-partner)
+> [!NOTE] 🤝 Need help with setup? I'm an **Ionos Partner** and can assist you!
+> Contact me at [Vikshan](https://go.vikshan.tech/ionos-partner)
 
 ## 🚀 Installation
 
@@ -124,8 +133,7 @@ echo "LINKTREE_USERNAME=your_username" > .env
 echo "PORT=3000" >> .env
 ```
 
-> [!NOTE]
-> If `LINKTREE_USERNAME` is not set, it defaults to `vikshan`
+> [!NOTE] If `LINKTREE_USERNAME` is not set, it defaults to `vikshan`
 
 3. **Start the application:**
 
@@ -139,51 +147,65 @@ bun start
 bun test
 ```
 
-> [!IMPORTANT] 
-> 🔧 When using a VPS, make sure to set up a reverse proxy using Apache2 or Nginx:
-> - 📚 [Apache2 guide](https://docs.vikshan.tech/selfhost/dashboard/domain) 
-> - 📚 [Nginx guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+> [!IMPORTANT] 🔧 When using a VPS, make sure to set up a reverse proxy using
+> Apache2 or Nginx:
+>
+> - 📚 [Apache2 guide](https://docs.vikshan.tech/selfhost/dashboard/domain)
+> - 📚
+>   [Nginx guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 
 ## ☁️ Cloud Deployment Options
 
-**First step:** ⭐ Star and [fork](https://github.com/iamvikshan/bento/fork) this repository
+**First step:** ⭐ Star and [fork](https://github.com/iamvikshan/bento/fork)
+this repository
 
 ### 🚀 Deploy to Zeabur
 
-1. Create a [Zeabur account](https://zeabur.com?referralCode=vikshan&utm_source=vikshan)
+1. Create a
+   [Zeabur account](https://zeabur.com?referralCode=vikshan&utm_source=vikshan)
 2. Select "Deploy from GitHub" in your dashboard
 3. Configure environment variables:
    - `LINKTREE_USERNAME`: Your Linktree username
 
-> [!NOTE] 
-> 🗑️ Remove the `.env` file if you're setting variables in Zeabur dashboard to avoid conflicts
+> [!NOTE] 🗑️ Remove the `.env` file if you're setting variables in Zeabur
+> dashboard to avoid conflicts
 
 ### 🌟 Deploy to Koyeb (Recommended)
 
 1. [Create a Koyeb account](https://app.koyeb.com/signup)
-2. Deploy from your GitHub repository **OR** [click here](https://app.koyeb.com/deploy?type=git&repository=github.com/iamvikshan/bento&name=bento&service_type=web&builder=dockerfile) to automatically create using this repo as template
+2. Deploy from your GitHub repository **OR**
+   [click here](https://app.koyeb.com/deploy?type=git&repository=github.com/iamvikshan/bento&name=bento&service_type=web&builder=dockerfile)
+   to automatically create using this repo as template
 3. Set required environment variables
 
-> [!WARNING] 
-> 💰 Custom domains require a paid Koyeb plan
+> [!WARNING] 💰 Custom domains require a paid Koyeb plan
 
 ### 🚂 Deploy to Railway
 
-1. Create a [Railway account](https://railway.com?referralCode=HB99pt) if you don't have one
-2. [Click here](https://railway.com/template/6fVSiZ?referralCode=HB99pt) to deploy using this repo as a template
-3. Railway will automatically detect the project and set up the necessary environment
+1. Create a [Railway account](https://railway.com?referralCode=HB99pt) if you
+   don't have one
+2. [Click here](https://railway.com/template/6fVSiZ?referralCode=HB99pt) to
+   deploy using this repo as a template
+3. Railway will automatically detect the project and set up the necessary
+   environment
 4. You'll be prompted to configure environment variables:
    - `LINKTREE_USERNAME`: Your Linktree username
 5. Click "Deploy" to start the deployment process
-6. Once deployed, you'll get a URL to access your Linktree profile with a custom domain
+6. Once deployed, you'll get a URL to access your Linktree profile with a custom
+   domain
 
-> [!NOTE] 
-> 💸 Railway provides a free tier with limited resources. For production use, consider upgrading to a paid plan. You can also configure a custom domain with your Railway deployment. Refer to the Railway [documentation](https://docs.railway.com/guides/public-networking#custom-domains) for more details on custom domains and other features.
+> [!NOTE] 💸 Railway provides a free tier with limited resources. For production
+> use, consider upgrading to a paid plan. You can also configure a custom domain
+> with your Railway deployment. Refer to the Railway
+> [documentation](https://docs.railway.com/guides/public-networking#custom-domains)
+> for more details on custom domains and other features.
 
 ### 🟣 Deploy to Heroku
 
 1. [Create a Heroku account](https://signup.heroku.com/)
-2. Click [here to deploy](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fiamvikshan%2Fbento) using this repo as a template, or use your own fork
+2. Click
+   [here to deploy](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fiamvikshan%2Fbento)
+   using this repo as a template, or use your own fork
 3. Configure custom domain in Settings → Domains
 4. Enable auto-deploys in Deploy → Deployment method
 
@@ -195,10 +217,11 @@ bun test
 
 ---
 
-> [!CAUTION] 
-> ⚠️ **Known Issues:**
+> [!CAUTION] ⚠️ **Known Issues:**
+>
 > 1. 🖼️ Some dynamic content may not work perfectly through the proxy
-> 2. 🔗 External link click tracking may not work (clicks still work, just not tracked)
+> 2. 🔗 External link click tracking may not work (clicks still work, just not
+>    tracked)
 
 ## 🤝 Contributing
 
@@ -210,24 +233,25 @@ Contributions are always welcome! If you find bugs or have suggestions:
 4. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
 5. 🔄 Open a [Pull Request](https://github.com/iamvikshan/bento/compare)
 
-> [!TIP] 
-> 💖 If this project helped you, please consider:
+> [!TIP] 💖 If this project helped you, please consider:
+>
 > - ⭐ Giving it a star
 > - 🤝 [Becoming a sponsor](https://github.com/sponsors/iamvikshan)
-> - 👀 Checking out my [other projects](https://github.com/iamvikshan?tab=repositories)
+> - 👀 Checking out my
+>   [other projects](https://github.com/iamvikshan?tab=repositories)
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE)
+file for details.
 
 ---
 
 ## 📊 Activity Graph
 
-![Repository Activity](https://repobeats.axiom.co/api/embed/578ac42457107a9ba4a650e59d5d42849ab69c0b.svg "Repobeats analytics image")
+![Repository Activity](https://repobeats.axiom.co/api/embed/578ac42457107a9ba4a650e59d5d42849ab69c0b.svg 'Repobeats analytics image')
 
 ---
-
 
 ## 💪 Powered By
 

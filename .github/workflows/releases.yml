@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "src/**"
+      - 'src/**'
 
 jobs:
   release:
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node, Bun and install dependencies
-        uses: iamvikshan/.github/.github/actions/setup-node-bun@main
+        uses: iamvikshan/.github/.github/actions/bun-node@main
 
       - name: Semantic Release
         id: semantic_release

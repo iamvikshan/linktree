@@ -11,10 +11,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "dbaeumer.vscode-eslint",
         "WakaTime.vscode-wakatime",
-        "GitHub.copilot",
-        "esbenp.prettier-vscode",
         "eamodio.gitlens",
         "oven.bun-vscode",
         "coderabbit.coderabbit-vscode"
@@ -23,7 +20,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "sudo apt update && sudo apt upgrade -y && [ -f scripts/git.sh ] && chmod +x scripts/git.sh; bun install && sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && curl -fsSL https://cli.coderabbit.ai/install.sh | sh",
+  "postCreateCommand": "bun upd && bun bs --default",
 
   // Set `remoteUser` to `root` to connect as root.
   "remoteUser": "root"

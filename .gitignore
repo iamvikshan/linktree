@@ -4,3 +4,4 @@ node_modules
 # Env
 .DS_Store
 package-lock.json
+scripts/bootstrap.sh

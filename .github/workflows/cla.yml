@@ -1,44 +1,17 @@
-name: "CLA Assistant"
+name: CLA Check
+
 on:
   issue_comment:
     types: [created]
   pull_request_target:
     types: [opened, closed, synchronize]
 
-permissions:
-  actions: write
-  contents: read
-  pull-requests: write
-  statuses: write
-
 jobs:
-  CLAAssistant:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "CLA Assistant"
-        if:
-          (github.event.comment.body == 'recheck' || github.event.comment.body == 'I have read the CLA Document and I hereby sign
-          the CLA') || github.event_name == 'pull_request_target'
-        uses: contributor-assistant/github-action@v2.6.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
-        with:
-          path-to-signatures: "signatures/signatures.json"
-          path-to-document: "https://github.com/iamvikshan/.github/blob/main/.github/CLA.md"
-          branch: "main"
-          remote-organization-name: ${{ github.repository_owner }}
-          remote-repository-name: ".github"
-          allowlist: dependabot-preview[bot], dependabot[bot], *bot, bot*
-          create-file-commit-message: "chore: create file for storing CLA signatures"
-          signed-commit-message: "chore: $contributorName has signed the CLA"
-          custom-notsigned-prcomment: |
-            Thank you for your contribution! Before we can merge this PR, please sign our Contributor License Agreement (CLA).
-
-            :memo: Please read our Code of Conduct and comment on this PR:
-            > I have read the CLA Document and I hereby sign the CLA
-
-            After signing, you can trigger a recheck by commenting `recheck`
-          custom-pr-sign-comment: "I have read the CLA Document and I hereby sign the CLA"
-          custom-allsigned-prcomment: "✅ All contributors have signed the CLA"
-          lock-pullrequest-aftermerge: true
+  run-cla:
+    uses: iamvikshan/.github/.github/workflows/cla.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    permissions:
+      contents: write
+      pull-requests: write
+      statuses: write
