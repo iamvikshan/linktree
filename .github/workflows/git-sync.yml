@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v7.0.1
 
       - name: Sync with GitLab
-        uses: iamvikshan/gitsync@v1.1.0
+        uses: iamvikshan/gitsync@v1.1.1
         with:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
